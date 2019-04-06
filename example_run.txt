@@ -1,0 +1,133 @@
+sonai@sonai-HP-ProDesk-600-G2-MT ~/PycharmProjects/Heap/HeapFile_Assignment $ g++ *.cpp -o output
+sonai@sonai-HP-ProDesk-600-G2-MT ~/PycharmProjects/Heap/HeapFile_Assignment $ ./output
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 1
+Enter number of DataPages to create : 2
+Created 2 number of pages of size 100 bytes each in DiskFile...
+Printing created initial DiskFile...
+DiskFile traversal, displaying Pages with Records <ID,Start,Length-Gap,Valid> :
+Page:1  Records{<0,0,0-0,false>}
+Page:2  Records{<0,0,0-0,false>}
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 2
+Enter Record identifier in int to insert into Pages : 100
+Enter Record length in bytes : 5
+Record inserted in Page : 1 
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 2
+Enter Record identifier in int to insert into Pages : 101
+Enter Record length in bytes : 10
+Record inserted in Page : 1 
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 2
+Enter Record identifier in int to insert into Pages : 102
+Enter Record length in bytes : 3
+Record inserted in Page : 1 
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 2
+Enter Record identifier in int to insert into Pages : 103
+Enter Record length in bytes : 15
+Record inserted in Page : 1 
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 2
+Enter Record identifier in int to insert into Pages : 104
+Enter Record length in bytes : 8
+Exhausted space in Page 1. Moving on to Page 2 to insert Record...
+Record inserted in Page : 2 
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 2
+Enter Record identifier in int to insert into Pages : 105
+Enter Record length in bytes : 12
+Exhausted space in Page 1. Moving on to Page 2 to insert Record...
+Record inserted in Page : 2 
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 2
+Enter Record identifier in int to insert into Pages : 106
+Enter Record length in bytes : 10
+Exhausted space in Page 1. Moving on to Page 2 to insert Record...
+Record inserted in Page : 2 
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 2
+Enter Record identifier in int to insert into Pages : 107
+Enter Record length in bytes : 20
+Exhausted space in Page 1. Moving on to Page 2 to insert Record...
+Exhausted space in Page 2. Page 3 is created to insert this new Record!
+Record inserted in Page : 3 
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 2
+Enter Record identifier in int to insert into Pages : 108
+Enter Record length in bytes : 3
+Exhausted space in Page 1. Moving on to Page 2 to insert Record...
+Record inserted in Page : 2 
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 2
+Enter Record identifier in int to insert into Pages : 109
+Enter Record length in bytes : 16
+Exhausted space in Page 1. Moving on to Page 2 to insert Record...
+Exhausted space in Page 2. Moving on to Page 3 to insert Record...
+Record inserted in Page : 3 
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 2
+Enter Record identifier in int to insert into Pages : 110
+Enter Record length in bytes : 7
+Exhausted space in Page 1. Moving on to Page 2 to insert Record...
+Exhausted space in Page 2. Moving on to Page 3 to insert Record...
+Record inserted in Page : 3 
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 4
+DiskFile traversal, displaying Pages with Records <ID,Start,Length-Gap,Valid> :
+Page:1  Records{<100,0,5-0,true> <101,5,10-0,true> <102,15,3-0,true> <103,18,15-0,true>}
+Page:2  Records{<104,0,8-0,true> <105,8,12-0,true> <106,20,10-0,true> <108,30,3-0,true>}
+Page:3  Records{<107,0,20-0,true> <109,20,16-0,true> <110,36,7-0,true>}
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 3
+Enter Record identifier in int to delete from Pages : 105
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 4
+DiskFile traversal, displaying Pages with Records <ID,Start,Length-Gap,Valid> :
+Page:1  Records{<100,0,5-0,true> <101,5,10-0,true> <102,15,3-0,true> <103,18,15-0,true>}
+Page:2  Records{<104,0,8-0,true> <0,8,12-0,false> <106,20,10-0,true> <108,30,3-0,true>}
+Page:3  Records{<107,0,20-0,true> <109,20,16-0,true> <110,36,7-0,true>}
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 2
+Enter Record identifier in int to insert into Pages : 111
+Enter Record length in bytes : 10
+Exhausted space in Page 1. Moving on to Page 2 to insert Record...
+Record inserted in an empty slot of Page : 2 
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 4
+DiskFile traversal, displaying Pages with Records <ID,Start,Length-Gap,Valid> :
+Page:1  Records{<100,0,5-0,true> <101,5,10-0,true> <102,15,3-0,true> <103,18,15-0,true>}
+Page:2  Records{<104,0,8-0,true> <111,8,10-2,true> <106,20,10-0,true> <108,30,3-0,true>}
+Page:3  Records{<107,0,20-0,true> <109,20,16-0,true> <110,36,7-0,true>}
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 3
+Enter Record identifier in int to delete from Pages : 108
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : 4
+DiskFile traversal, displaying Pages with Records <ID,Start,Length-Gap,Valid> :
+Page:1  Records{<100,0,5-0,true> <101,5,10-0,true> <102,15,3-0,true> <103,18,15-0,true>}
+Page:2  Records{<104,0,8-0,true> <111,8,10-2,true> <106,20,10-0,true> <0,30,3-0,false>}
+Page:3  Records{<107,0,20-0,true> <109,20,16-0,true> <110,36,7-0,true>}
+
+Enter :- 1:Create New DiskFile, 2:Insert Record, 3:Delete Record, 4:Display DiskFile Structure, -1:Exit
+Choice : -1
+sonai@sonai-HP-ProDesk-600-G2-MT ~/PycharmProjects/Heap/HeapFile_Assignment $
