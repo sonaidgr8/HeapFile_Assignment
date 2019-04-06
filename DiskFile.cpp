@@ -108,8 +108,9 @@
             struct Node *last = *head_ref;
             bool flag = false; /* To check for duplicate entries. Currently deletes all
             duplicate entries by traversing all the pages. */
-
+            int count = 0;
             while(last != NULL) {
+                count = count + 1;
                 for(int i=0; i<last->data.arr.size(); i++){
                     if(last->data.arr[i].id == rec_id && last->data.arr[i].valid == true){
                         last->data.arr[i].id = 0;
@@ -118,6 +119,7 @@
                         last->data.arr[i].length = last->data.arr[i].length + gap;
                         last->data.arr[i].valid = false;
                         flag = true;
+                        printf("Record deleted from Page : %d \n", count);
                         /* No return after one deletion. After one entry deletion it checks
                         for all the duplicate entries matching IDs and deletes them. */
                     }
