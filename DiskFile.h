@@ -15,9 +15,10 @@ class DiskFile{
 
         DiskFile(){ }
 
-        DiskFile(int n){
+        DiskFile(int n, bool * create_diskFile){
             if(n * DISK_PAGE_SIZE > DISK_FILE_SIZE){
                     printf("Number of Pages must not exhaust maximum allowable DiskFile size %d\n", DISK_PAGE_SIZE);
+                    *create_diskFile = false;
                     return;
             }
             for(int i=0; i<n; i++)
@@ -26,11 +27,12 @@ class DiskFile{
             printf("Printing created initial DiskFile...\n");
             printPages(this->nodePointer);
             this->totalPages = n;
+            *create_diskFile = true;
         }
 
         void appendPages(struct Node** head_ref, Page new_data);
         void printPages(struct Node* node);
-        void insertRecord(struct Node** head_ref, int rec_id, int rec_length);
+        void insertRecord(struct Node** head_ref, int rec_id, int rec_length, bool * inserted_records);
         void deleteRecord(struct Node** head_ref, int rec_id);
 
 };

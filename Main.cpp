@@ -20,8 +20,7 @@ int main()
                            printf("Enter number of DataPages to create : ");
                            int n;
                            cin >> n;
-                           d = DiskFile(n);
-                           create_diskFile = true;
+                           d = DiskFile(n, &create_diskFile);
                        }
                        else
                            printf("DiskFile has already been created.\n");
@@ -36,8 +35,7 @@ int main()
                            printf("Enter Record length in bytes : ");
                            int l;
                            cin >> l;
-                           d.insertRecord(&d.nodePointer,id,l);
-                           inserted_records = true;
+                           d.insertRecord(&d.nodePointer,id,l,&inserted_records);
                        }
                        else
                            printf("You can not enter Records into Pages without creating the initial DiskFile.\n");

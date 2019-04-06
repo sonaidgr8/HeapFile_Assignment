@@ -24,14 +24,16 @@
 
        /* Given a reference (pointer to pointer) to the head
        of a list and a record details, it inserts the record in the DiskFIle  */
-        void DiskFile :: insertRecord(struct Node** head_ref, int rec_id, int rec_length)
+        void DiskFile :: insertRecord(struct Node** head_ref, int rec_id, int rec_length, bool * inserted_records)
         {
             if(rec_length > DISK_PAGE_SIZE){
                 printf("Record length should be less than maximum allowable Page size %d\n", DISK_PAGE_SIZE);
+                *inserted_records = false;
                 return;
             }
             else if(this->totalPages * DISK_PAGE_SIZE > DISK_FILE_SIZE){
                 printf("Number of Pages must not exhaust maximum allowable DiskFile size %d\n", DISK_PAGE_SIZE);
+                *inserted_records = false;
                 return;
             }
             struct Node *last = *head_ref;
@@ -47,6 +49,7 @@
                     last->data.spaceLeft = last->data.spaceLeft - (rec_length + DIR_ENTRY_LENGTH);
                     last->data.dirSlotCount = last->data.arr.size();
                     printf("Record inserted in Page : %d \n", count);
+                    *inserted_records = true;
                     break;
                 }
                 else{
