@@ -32,7 +32,7 @@
                 return;
             }
             else if(this->totalPages * DISK_PAGE_SIZE > DISK_FILE_SIZE){
-                printf("Number of Pages must not exhaust maximum allowable DiskFile size %d\n", DISK_PAGE_SIZE);
+                printf("Number of Pages must not exhaust maximum allowable DiskFile size %d\n", DISK_FILE_SIZE);
                 *inserted_records = false;
                 return;
             }
