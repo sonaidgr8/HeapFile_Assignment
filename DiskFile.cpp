@@ -56,7 +56,7 @@
                 /* Case-2: When an empty slot is available from deletion to hold the Record */
                     for(int i=0; i<last->data.arr.size(); i++){
                         if(last->data.arr[i].id == 0 && last->data.arr[i].valid == false){
-                            bool space_available = (rec_length < (last->data.arr[i].start + last->data.arr[i].length));
+                            bool space_available = (rec_length <= (last->data.arr[i].start + last->data.arr[i].length));
                             if(space_available){
                                 last->data.arr[i].id = rec_id;
                                 last->data.arr[i].length = rec_length;
