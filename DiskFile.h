@@ -16,7 +16,7 @@ class DiskFile{
         DiskFile(){ }
 
         DiskFile(int n, bool * create_diskFile){
-            if(n * DISK_PAGE_SIZE > DISK_FILE_SIZE){
+            if(n * DISK_PAGE_SIZE > DISK_FILE_SIZE - (sizeof(nodePointer)+sizeof(totalPages))){
                     printf("Number of Pages must not exhaust maximum allowable DiskFile size %d\n", DISK_PAGE_SIZE);
                     *create_diskFile = false;
                     return;

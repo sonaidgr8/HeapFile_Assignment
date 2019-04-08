@@ -31,7 +31,7 @@
                 *inserted_records = false;
                 return;
             }
-            else if(this->totalPages * DISK_PAGE_SIZE > DISK_FILE_SIZE){
+            else if((this->totalPages * DISK_PAGE_SIZE) > (DISK_FILE_SIZE  - (sizeof(this->nodePointer)+sizeof(this->totalPages)))){
                 printf("Number of Pages must not exhaust maximum allowable DiskFile size %d\n", DISK_FILE_SIZE);
                 *inserted_records = false;
                 return;
@@ -41,7 +41,7 @@
             while(last != NULL) {
                 count = count+1;
                 /* Case-1: When DataPages are empty at the beginning */
-                if (((last->data.dirSlotCount == 1) && (last->data.arr[0].valid == false)) || (last->data.spaceLeft == DISK_PAGE_SIZE)){
+                if (((last->data.dirSlotCount == 1) && (last->data.arr[0].valid == false)) || (last->data.spaceLeft == (DISK_PAGE_SIZE - (sizeof(last->data.spaceLeft)+sizeof(last->data.dirSlotCount)+last->data.arr.size()*DIR_ENTRY_LENGTH)))){
                     last->data.arr[0].id = rec_id;
                     last->data.arr[0].length = rec_length;
                     last->data.arr[0].start = 0;
@@ -84,7 +84,7 @@
                  /* Case-5: When no empty slot is available and no existing Page can accommodate the data,
                  then append a new page if maximum allowable DiskFile size is not exhausted */
                         else{
-                            if((this->totalPages + 1) * DISK_PAGE_SIZE <=  DISK_FILE_SIZE){
+                            if((this->totalPages + 1) * DISK_PAGE_SIZE <=  (DISK_FILE_SIZE  - (sizeof(this->nodePointer)+sizeof(this->totalPages)))){
                                 printf("Exhausted space in Page %d. Page %d is created to insert this new Record!\n", count, count+1);
                                 appendPages(&this->nodePointer, Page());
                                 this->totalPages = this->totalPages + 1;

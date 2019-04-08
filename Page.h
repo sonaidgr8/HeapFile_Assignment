@@ -30,7 +30,7 @@ class Page{
         //initializes an empty page with initial record entry
         Page(){
             this->arr.resize(1, DirectoryEntry());
-            this->spaceLeft = DISK_PAGE_SIZE;
-            this->dirSlotCount = arr.size();
+            this->spaceLeft = DISK_PAGE_SIZE - (sizeof(this->spaceLeft)+sizeof(this->dirSlotCount)+this->arr.size()*DIR_ENTRY_LENGTH);
+            this->dirSlotCount = this->arr.size();
         }
 };
