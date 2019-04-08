@@ -26,18 +26,20 @@
        of a list and a record details, it inserts the record in the DiskFIle  */
         void DiskFile :: insertRecord(struct Node** head_ref, int rec_id, int rec_length, bool * inserted_records)
         {
-            if(rec_length > DISK_PAGE_SIZE){
-                printf("Record length should be less than maximum allowable Page size %d\n", DISK_PAGE_SIZE);
+            if(rec_length > (DISK_PAGE_SIZE - (2*sizeof(int)+DIR_ENTRY_LENGTH))){
+                printf("Record length should be less than effective allowable Page size %d, where the maximum Page size is %d\n", (int)(DISK_PAGE_SIZE - (2*sizeof(int)+DIR_ENTRY_LENGTH)), DISK_PAGE_SIZE);
                 *inserted_records = false;
                 return;
             }
             else if((this->totalPages * DISK_PAGE_SIZE) > (DISK_FILE_SIZE  - (sizeof(this->nodePointer)+sizeof(this->totalPages)))){
-                printf("Number of Pages must not exhaust maximum allowable DiskFile size %d\n", DISK_FILE_SIZE);
+                printf("Number of Pages must not exhaust effective allowable DiskFile size %d, where the maximum DiskFile size is %d\n", (DISK_FILE_SIZE  - (int)(sizeof(this->nodePointer)+sizeof(this->totalPages))), DISK_FILE_SIZE);
                 *inserted_records = false;
                 return;
             }
+
             struct Node *last = *head_ref;
             int count = 0;
+
             while(last != NULL) {
                 count = count+1;
                 /* Case-1: When DataPages are empty at the beginning */
@@ -50,7 +52,7 @@
                     last->data.dirSlotCount = last->data.arr.size();
                     printf("Record inserted in Page : %d \n", count);
                     *inserted_records = true;
-                    break;
+                    return;
                 }
                 else{
                 /* Case-2: When an empty slot is available from deletion to hold the Record */
@@ -90,12 +92,13 @@
                                 this->totalPages = this->totalPages + 1;
                             }
                             else{
-                                printf("Exhausted maximum allowable DiskFile size %d.\n", DISK_FILE_SIZE);
+                                printf("Exhausted effective allowable DiskFile size %d, where the maximum DiskFile size is %d\n", (DISK_FILE_SIZE  - (int)(sizeof(this->nodePointer)+sizeof(this->totalPages))), DISK_FILE_SIZE);
                                 return;
                             }
                         }
-                      last = last->next;
+
                     }
+                  last = last->next;
                 }
             }
           return;
