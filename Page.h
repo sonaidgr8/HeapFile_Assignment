@@ -31,7 +31,7 @@ class Page{
         Page(){
             this->arr.resize(1, DirectoryEntry());
             this->spaceLeft = DISK_PAGE_SIZE - (sizeof(this->spaceLeft)+sizeof(this->dirSlotCount)+this->arr.size()*DIR_ENTRY_LENGTH);
-            printf("%d", this->spaceLeft);
+            //printf("%d", this->spaceLeft);
             this->dirSlotCount = this->arr.size();
         }
 };
