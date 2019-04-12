@@ -41,12 +41,12 @@
             while(temp != NULL) {
                 count = count+1;
                 /* Case-1: When DataPages are empty at the beginning */
-                if (((temp->data.dirSlotCount == 1) && (temp->data.arr[0].valid == false)) || (temp->data.spaceLeft == (DISK_PAGE_SIZE - (sizeof(temp->data.spaceLeft)+sizeof(temp->data.dirSlotCount)+temp->data.arr.size()*DIR_ENTRY_LENGTH)))){
+                if (((temp->data.dirSlotCount == 1) && (temp->data.arr[0].valid == false) && temp->data.arr[0].length==0) || (temp->data.spaceLeft == (DISK_PAGE_SIZE - (sizeof(temp->data.spaceLeft)+sizeof(temp->data.dirSlotCount)+temp->data.arr.size()*DIR_ENTRY_LENGTH)))){
                     temp->data.arr[0].id = rec_id;
                     temp->data.arr[0].length = rec_length;
                     temp->data.arr[0].start = 0;
                     temp->data.arr[0].valid = true;
-                    temp->data.spaceLeft = temp->data.spaceLeft - (rec_length + DIR_ENTRY_LENGTH);
+                    temp->data.spaceLeft = temp->data.spaceLeft - (rec_length);
                     temp->data.dirSlotCount = temp->data.arr.size();
                     printf("Record inserted in Page : %d \n", count);
                     *inserted_records = true;
@@ -68,7 +68,9 @@
                     }
                 /* Case-3: When no empty slot is available and if existing Page can accommodate the data at the end */
                     if (temp->data.spaceLeft - (rec_length + DIR_ENTRY_LENGTH) >= 0){
-                        int next_start_idx = temp->data.arr[temp->data.arr.size()-1].start + temp->data.arr[temp->data.arr.size()-1].length;
+                        int i = temp->data.arr.size() - 1;
+                        int gap = DISK_PAGE_SIZE - temp->data.spaceLeft - (i+1)*DIR_ENTRY_LENGTH - 2*sizeof(int) - temp->data.arr[i].start - temp->data.arr[i].length;
+                        int next_start_idx = temp->data.arr[temp->data.arr.size()-1].start + temp->data.arr[temp->data.arr.size()-1].length + gap;
                         temp->data.arr.push_back(DirectoryEntry(rec_id, rec_length, next_start_idx, true));
                         temp->data.spaceLeft = temp->data.spaceLeft - (rec_length + DIR_ENTRY_LENGTH);
                         temp->data.dirSlotCount = temp->data.arr.size();
@@ -114,7 +116,12 @@
                 for(int i=0; i<temp->data.arr.size(); i++){
                     if(temp->data.arr[i].id == rec_id && temp->data.arr[i].valid == true){
                         temp->data.arr[i].id = 0;
-                        int gap = (i == temp->data.arr.size()-1) ? 0 : temp->data.arr[i+1].start - (temp->data.arr[i].start + temp->data.arr[i].length);
+                        int gap;
+                        if (i == temp->data.arr.size()-1){
+                            gap = DISK_PAGE_SIZE - temp->data.spaceLeft - (i+1)*DIR_ENTRY_LENGTH - 2*sizeof(int) - temp->data.arr[i].start - temp->data.arr[i].length;
+                        }else{
+                            gap = temp->data.arr[i+1].start - (temp->data.arr[i].start + temp->data.arr[i].length);
+                        }
                         /* Claim the left-over space through gap, restores original slot's length but not defined for temp Record of a Page */
                         temp->data.arr[i].length = temp->data.arr[i].length + gap;
                         temp->data.arr[i].valid = false;
@@ -142,7 +149,7 @@
                 count = count+1;
                 printf("Page:%d  Records{", count);
                 for(int i=0; i<node->data.arr.size(); i++){
-                    int gap = (i == node->data.arr.size()-1) ? 0 : node->data.arr[i+1].start - (node->data.arr[i].start + node->data.arr[i].length);
+                    int gap = (i == node->data.arr.size()-1) ?  DISK_PAGE_SIZE - (i+1)*DIR_ENTRY_LENGTH - 2*sizeof(int) - node->data.arr[i].start - node->data.arr[i].length - node->data.spaceLeft: node->data.arr[i+1].start - (node->data.arr[i].start + node->data.arr[i].length);
                     printf("<%d,%d,%d-%d,%s> ", node->data.arr[i].id, node->data.arr[i].start, node->data.arr[i].length, gap, node->data.arr[i].valid ? "true" : "false");
                 }
                 printf(" : spaceLeft = %d }\n", node->data.spaceLeft);
