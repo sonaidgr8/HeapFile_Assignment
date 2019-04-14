@@ -2,6 +2,7 @@
 #include "Common.h"
 #include "Page.h"
 #include "DiskFile.h"
+#include "DiskFile.cpp"
 
 int main()
 {
